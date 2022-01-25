@@ -1,0 +1,36 @@
+﻿<div>
+    <div>
+        <input @bind-value="newItem" />
+        <button @onclick=AddToItems>Add</button>
+    </div>
+
+    <div>
+    @foreach (var item in ItemsToView)
+    {
+        <div>@item</div>
+    }
+    </div>
+
+    <button @onclick=NextStep>Go to comparison</button>
+</div>
+
+@code {
+    private string newItem;
+
+    [Parameter]
+    public EventCallback GoNextStep { get; set; }
+
+    [Parameter]
+    public List<string> ItemsToView { get; set; }
+
+    protected void AddToItems()
+    {
+        ItemsToView.Add(newItem);
+        newItem = string.Empty;
+    }
+
+    protected void NextStep()
+    {
+        GoNextStep.InvokeAsync(null);
+    }
+}

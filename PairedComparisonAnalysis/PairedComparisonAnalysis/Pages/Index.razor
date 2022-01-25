@@ -1,5 +1,20 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@inherits IndexBase
 
-Welcome to your new app.
+<h1>Paired Comparison Analysis</h1>
+<span>(or how I remembered it)</span>
+
+@if (WhatPageIsThis == CurrentPage.EnterItems) 
+{
+    <span>Tutaj wstaw nowe elementy</span>   
+    <ItemsCollector ItemsToView=Items GoNextStep=NextStep />
+}
+else if (WhatPageIsThis == CurrentPage.CompareItems)
+{
+    <span>Tutaj porównasz elementy</span>
+}
+else
+{
+    <span>A Tu otrzymasz podsumowanie</span>
+}
