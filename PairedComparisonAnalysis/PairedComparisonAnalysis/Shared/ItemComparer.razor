@@ -1,0 +1,35 @@
+﻿@inherits ItemComparerBase
+
+<div>
+    <table>
+        <tr>
+            <td>&nbsp;</td>
+@foreach(var item in ItemsToCompare)
+{
+            <td>@item</td>
+}
+        </tr>
+        @for(var i = 0; i<ItemsToCompare.Count; i++)
+        {
+            <tr>
+                <td>@ItemsToCompare[i]</td>
+                @for(var j = 0; j < ItemsToCompare.Count; j++)
+                {
+                    if (i == j)
+                    {
+                        <td>X</td>
+                    }
+                    else
+                    {
+                        <td>@GetComparisonResult(ItemsToCompare[i], ItemsToCompare[j])</td>                        
+                    }
+                }
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <button @onclick=@(() => GoNextStep.InvokeAsync(null))>Go to comparison</button>
+    <button @onclick=@(() => LaunchComparison())>Compare</button>
+    <button @onclick=@(() => GoNextStep.InvokeAsync(null))>Go to summary</button>
+</div>

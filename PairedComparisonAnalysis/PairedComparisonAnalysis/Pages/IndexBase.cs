@@ -7,6 +7,8 @@ namespace PairedComparisonAnalysis.Pages
     public class IndexBase : ComponentBase
     {
         public List<string> Items = new List<string>();
+        public List<Comparison> Comparisons = new List<Comparison>();
+
         public CurrentPage WhatPageIsThis { get; set; } = CurrentPage.EnterItems;
 
         protected void AddItem(string item)
@@ -14,9 +16,9 @@ namespace PairedComparisonAnalysis.Pages
             Items.Add(item);
         }
 
-        protected void NextStep()
-        {
-            WhatPageIsThis = CurrentPage.CompareItems;
-        }
+        protected void GoToCollect() => WhatPageIsThis = CurrentPage.EnterItems;
+        protected void GoToComparison() => WhatPageIsThis = CurrentPage.CompareItems;
+        protected void GoToSummary() => WhatPageIsThis = CurrentPage.SummarizeItems;
+
     }
 }

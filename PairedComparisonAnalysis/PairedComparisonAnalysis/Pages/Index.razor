@@ -7,12 +7,14 @@
 
 @if (WhatPageIsThis == CurrentPage.EnterItems) 
 {
-    <span>Tutaj wstaw nowe elementy</span>   
-    <ItemsCollector ItemsToView=Items GoNextStep=NextStep />
+    <ItemsCollector ItemsToView=Items GoNextStep=GoToComparison />
 }
 else if (WhatPageIsThis == CurrentPage.CompareItems)
 {
-    <span>Tutaj porównasz elementy</span>
+    <ItemComparer ItemsToCompare=Items
+        Comparisons=Comparisons
+        GoPrevStep=GoToCollect 
+        GoNextStep=GoToSummary />
 }
 else
 {
