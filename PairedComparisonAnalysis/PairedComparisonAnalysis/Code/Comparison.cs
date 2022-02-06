@@ -1,37 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace PairedComparisonAnalysis.Code
+﻿namespace PairedComparisonAnalysis.Code
 {
     public class Comparison
     {
-        public string First { get; set; }
-        public string Last { get; set; }
+        public const string NoResult = "_";
 
-        // 1 means First > Last, 0 means First < Last
-        public int Result { get; set; }
+        public string First { get; set; }
+        public string Second { get; set; }
+        public ComparisonResult Result { get; set; }
+
+        public Comparison(string first, string last)
+        {
+            First = first;
+            Second = last;
+        }
+
+        public int? GetPointsFor(string comparisonItem)
+        {
+            if (comparisonItem == First)
+                return Result == ComparisonResult.First ? 1 : 0;
+
+            if (comparisonItem == Second)
+                return Result == ComparisonResult.Second ? 0 : 1;
+
+            return null;
+        }
     }
 
-    //public class ComparisonList
-    //{
-    //    public List<Comparison> Comparisons { get; set; } = new List<Comparison>();
-
-    //    public void Add(int i, int j)
-    //    {
-
-    //    }
-
-    //    public Comparison this[int i, int j]
-    //    {
-    //        get
-    //        {
-    //            return Comparisons.SingleOrDefault();
-    //        }
-    //    }
-
-    //    private bool ComparisonExists(int i, int j)
-    //    {
-
-    //    }
-    //}
+    public enum ComparisonResult
+    {
+        First,
+        Second
+    }
 }

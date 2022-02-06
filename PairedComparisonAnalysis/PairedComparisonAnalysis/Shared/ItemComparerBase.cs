@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Modal;
+using Blazored.Modal.Services;
+using Microsoft.AspNetCore.Components;
 using PairedComparisonAnalysis.Code;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PairedComparisonAnalysis.Shared
 {
     public class ItemComparerBase : ComponentBase
     {
+        [CascadingParameter]
+        public IModalService Modal { get; set; }
+
         [Parameter]
         public List<string> ItemsToCompare { get; set; }
 
         [Parameter]
-        public List<Comparison> Comparisons { get; set; }
+        public ComparisonList Comparisons { get; set; }
 
         [Parameter]
         public EventCallback GoPrevStep { get; set; }
@@ -21,19 +25,45 @@ namespace PairedComparisonAnalysis.Shared
 
         protected string GetComparisonResult(string i, string j)
         {
-            var comparison = Comparisons.SingleOrDefault(x => x.First == i && x.Last == j);
+            var comparison = Comparisons[i, j];
 
             if (comparison == null)
             {
-                return "_";
+                return Comparison.NoResult;
             }
 
-            return comparison.Result.ToString();
+            return comparison.GetPointsFor(i).ToString();
         }
 
         protected void LaunchComparison()
         {
+            for(int i = 0; i < ItemsToCompare.Count; i++)
+            {
+                for(int j = i; j < ItemsToCompare.Count; j++)
+                {
+                    if (i == j)
+                        continue;
 
+                    var comparison = new Comparison(ItemsToCompare[i], ItemsToCompare[j]);
+
+                    Compare(comparison);
+                }
+            }
+
+            InvokeAsync(StateHasChanged);
+        }
+
+        private async void Compare(Comparison comparison)
+        {
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(ComparisonQuestion.Comparison), comparison);
+
+            var comparisonModal = Modal.Show<ComparisonQuestion>("My Question is...", parameters);
+            var result = await comparisonModal.Result;
+
+            comparison.Result = result.Cancelled ? ComparisonResult.Second : ComparisonResult.First;
+
+            Comparisons.Add(comparison);
         }
     }
 }

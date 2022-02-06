@@ -7,7 +7,7 @@ namespace PairedComparisonAnalysis.Pages
     public class IndexBase : ComponentBase
     {
         public List<string> Items = new List<string>();
-        public List<Comparison> Comparisons = new List<Comparison>();
+        public ComparisonList Comparisons = new ComparisonList();
 
         public CurrentPage WhatPageIsThis { get; set; } = CurrentPage.EnterItems;
 
