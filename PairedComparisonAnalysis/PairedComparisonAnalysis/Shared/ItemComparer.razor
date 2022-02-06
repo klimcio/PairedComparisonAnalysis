@@ -8,8 +8,9 @@
         {
             <td>@item</td>
         }
+            <td>Sum</td>
         </tr>
-        @for(var i = 0; i<ItemsToCompare.Count; i++)
+        @for(var i = 0; i < ItemsToCompare.Count; i++)
         {
             <tr>
                 <td>@ItemsToCompare[i]</td>
@@ -24,6 +25,7 @@
                         <td>@GetComparisonResult(ItemsToCompare[i], ItemsToCompare[j])</td>                        
                     }
                 }
+                <td></td>
             </tr>
         }
     </table>

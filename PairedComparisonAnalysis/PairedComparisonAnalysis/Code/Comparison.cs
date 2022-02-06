@@ -20,7 +20,7 @@
                 return Result == ComparisonResult.First ? 1 : 0;
 
             if (comparisonItem == Second)
-                return Result == ComparisonResult.Second ? 0 : 1;
+                return Result == ComparisonResult.Second ? 1 : 0;
 
             return null;
         }
