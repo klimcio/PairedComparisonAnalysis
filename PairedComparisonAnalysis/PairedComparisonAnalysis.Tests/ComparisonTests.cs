@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using PairedComparisonAnalysis.Code;
+using PairedComparisonAnalysisV2.Code;
 using Xunit;
 
 namespace PairedComparisonAnalysis.Tests
