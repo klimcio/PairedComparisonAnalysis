@@ -1,10 +1,9 @@
 ﻿using Blazored.Modal;
 using Blazored.Modal.Services;
 using Microsoft.AspNetCore.Components;
-using PairedComparisonAnalysis.Code;
-using System.Collections.Generic;
+using PairedComparisonAnalysisV2.Code;
 
-namespace PairedComparisonAnalysis.Shared
+namespace PairedComparisonAnalysisV2.Shared
 {
     public class ItemComparerBase : ComponentBase
     {
@@ -37,9 +36,9 @@ namespace PairedComparisonAnalysis.Shared
 
         protected void LaunchComparison()
         {
-            for(int i = 0; i < ItemsToCompare.Count; i++)
+            for (int i = 0; i < ItemsToCompare.Count; i++)
             {
-                for(int j = i; j < ItemsToCompare.Count; j++)
+                for (int j = i; j < ItemsToCompare.Count; j++)
                 {
                     if (i == j)
                         continue;

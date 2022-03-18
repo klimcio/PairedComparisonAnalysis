@@ -1,4 +1,4 @@
-﻿namespace PairedComparisonAnalysis.Code
+﻿namespace PairedComparisonAnalysisV2.Code
 {
     public class Comparison
     {

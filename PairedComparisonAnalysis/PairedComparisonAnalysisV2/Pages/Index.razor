@@ -1,0 +1,22 @@
+﻿@page "/"
+
+@inherits IndexBase
+
+<h1>Paired Comparison Analysis</h1>
+<span>(or how I remembered it)</span>
+
+@if (WhatPageIsThis == CurrentPage.EnterItems) 
+{
+    <ItemsCollector ItemsToView=Items GoNextStep=GoToComparison />
+}
+else if (WhatPageIsThis == CurrentPage.CompareItems)
+{
+    <ItemComparer ItemsToCompare=Items
+        Comparisons=Comparisons
+        GoPrevStep=GoToCollect 
+        GoNextStep=GoToSummary />
+}
+else
+{
+    <span>A Tu otrzymasz podsumowanie</span>
+}

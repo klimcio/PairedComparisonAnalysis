@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PairedComparisonAnalysis.Code;
-using System.Collections.Generic;
+using PairedComparisonAnalysisV2.Code;
 
-namespace PairedComparisonAnalysis.Pages
+namespace PairedComparisonAnalysisV2.Pages
 {
     public class IndexBase : ComponentBase
     {
