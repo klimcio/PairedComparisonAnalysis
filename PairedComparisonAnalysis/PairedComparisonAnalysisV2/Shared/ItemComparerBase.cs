@@ -8,13 +8,13 @@ namespace PairedComparisonAnalysisV2.Shared
     public class ItemComparerBase : ComponentBase
     {
         [CascadingParameter]
-        public IModalService Modal { get; set; }
+        public IModalService? Modal { get; set; }
 
         [Parameter]
-        public List<string> ItemsToCompare { get; set; }
+        public List<string> ItemsToCompare { get; set; } = new List<string>();
 
         [Parameter]
-        public ComparisonList Comparisons { get; set; }
+        public ComparisonList Comparisons { get; set; } = new ComparisonList();
 
         [Parameter]
         public EventCallback GoPrevStep { get; set; }
@@ -31,7 +31,9 @@ namespace PairedComparisonAnalysisV2.Shared
                 return Comparison.NoResult;
             }
 
-            return comparison.GetPointsFor(i).ToString();
+            int? comparisonPoints = comparison.GetPointsFor(i);
+
+            return comparisonPoints.HasValue ? comparisonPoints.Value.ToString() : "";
         }
 
         protected void LaunchComparison()
@@ -56,6 +58,9 @@ namespace PairedComparisonAnalysisV2.Shared
         {
             var parameters = new ModalParameters();
             parameters.Add(nameof(ComparisonQuestion.Comparison), comparison);
+
+            if (Modal == null)
+                return;
 
             var comparisonModal = Modal.Show<ComparisonQuestion>("My Question is...", parameters);
             var result = await comparisonModal.Result;
