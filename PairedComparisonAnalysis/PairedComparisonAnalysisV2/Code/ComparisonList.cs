@@ -8,9 +8,9 @@
 
         public void Add(Comparison newComparison)
         {
-            var item = this[newComparison.First, newComparison.Second];
+            var itemIndex = GetIndex(newComparison.First, newComparison.Second);
 
-            if (item == null)
+            if (itemIndex == -1)
             {
                 Comparisons.Add(newComparison);
             }
@@ -24,20 +24,27 @@
         {
             get
             {
-                return Comparisons.SingleOrDefault(CompareByOrder(i, j));
+                var index = GetIndex(i, j);
+
+                if (index == -1)
+                    throw new ArgumentException();
+
+                return Comparisons[index];
             }
             private set
             {
-                var index = Comparisons.FindIndex(ComparePredicate(i, j));
+                var index = GetIndex(i, j);
 
                 Comparisons[index] = value;
             }
         }
 
-        private Predicate<Comparison> ComparePredicate(string i, string j)
-            => x => x.First == i && x.Second == j || x.First == j && x.Second == i;
+        private int GetIndex(string i, string j)
+        {
+            return Comparisons.FindIndex(ComparePredicate(i, j));
+        }
 
-        private Func<Comparison, bool> CompareByOrder(string i, string j)
+        private Predicate<Comparison> ComparePredicate(string i, string j)
             => x => x.First == i && x.Second == j || x.First == j && x.Second == i;
     }
 }
