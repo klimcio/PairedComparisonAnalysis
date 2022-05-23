@@ -1,15 +1,10 @@
-﻿using Blazored.Modal;
-using Blazored.Modal.Services;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using PairedComparisonAnalysisV2.Code;
 
 namespace PairedComparisonAnalysisV2.Shared
 {
     public class ItemComparerBase : ComponentBase
     {
-        [CascadingParameter]
-        public IModalService? Modal { get; set; }
-
         [Parameter]
         public List<string> ItemsToCompare { get; set; } = new List<string>();
 
@@ -56,18 +51,6 @@ namespace PairedComparisonAnalysisV2.Shared
 
         private async void Compare(Comparison comparison)
         {
-            var parameters = new ModalParameters();
-            parameters.Add(nameof(ComparisonQuestion.Comparison), comparison);
-
-            if (Modal == null)
-                return;
-
-            var comparisonModal = Modal.Show<ComparisonQuestion>("My Question is...", parameters);
-            var result = await comparisonModal.Result;
-
-            comparison.Result = result.Cancelled ? ComparisonResult.Second : ComparisonResult.First;
-
-            Comparisons.Add(comparison);
         }
     }
 }
